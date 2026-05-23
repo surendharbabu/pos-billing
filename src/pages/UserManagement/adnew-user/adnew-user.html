@@ -1,0 +1,191 @@
+<p-toast position="top-right"></p-toast>
+<form [formGroup]="userForm" style="padding: 1.5rem 0 0.5rem 0;  padding: 1.5rem 0 0.5rem 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;" autocomplete="off">
+    
+    <!-- 1. Category Name Field (Mandatory) -->
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="userName">User Name <span style="color: red;">*</span></label>
+        <input 
+            pInputText 
+            id="userName" 
+            formControlName="userName" 
+            placeholder="Enter User Name"(keypress)="restrictAlphaNumeric($event)" />
+        
+       @if (userForm.get('userName')?.touched &&
+     userForm.get('userName')?.invalid) {
+
+    @if (userForm.get('userName')?.errors?.['required']) {
+        <small style="color: var(--p-red-500); font-size: 12px;">
+            User Name is required.
+        </small>
+    }
+
+    @if (userForm.get('userName')?.errors?.['pattern']) {
+        <small style="color: var(--p-red-500); font-size: 12px;">
+            Only letters and numbers are allowed.
+        </small>
+    }
+}
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="firstName">First Name <span style="color: red;">*</span></label>   
+        <input 
+            pInputText 
+            id="firstName" 
+            formControlName="firstName" 
+            placeholder="Enter First Name" />
+        
+        @if (userForm.get('firstName')?.touched && userForm.get('firstName')?.invalid) {
+            <small style="color: var(--p-red-500); font-size: 12px;">First Name is required.</small>
+        }
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="lastName">Last Name <span style="color: red;">*</span></label>
+        <input 
+            pInputText 
+            id="lastName" 
+            formControlName="lastName" 
+            placeholder="Enter Last Name" />
+        
+        @if (userForm.get('lastName')?.touched && userForm.get('lastName')?.invalid) {
+            <small style="color: var(--p-red-500); font-size: 12px;">Last Name is required.</small>
+        }
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="mobileNo">Mobile Number <span style="color: red;">*</span></label>
+        <input type="tel"
+            pInputText 
+            id="mobileNo" 
+            formControlName="mobileNo" 
+            placeholder="Enter Mobile Number" />
+        
+        @if (userForm.get('mobileNo')?.touched &&
+         userForm.get('mobileNo')?.invalid) {
+
+        @if (userForm.get('mobileNo')?.errors?.['required']) {
+            <small style="color: var(--p-red-500); font-size: 12px;">
+                Mobile Number is required.
+            </small>
+        }
+
+        @if (userForm.get('mobileNo')?.errors?.['pattern']) {
+            <small style="color: var(--p-red-500); font-size: 12px;">
+                Enter valid 10 digit mobile number.
+            </small>
+        }
+    }
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;" autocomplete="off">
+        <label for="email">Email <span style="color: red;">*</span></label>
+        <input 
+            pInputText 
+            id="email" 
+            formControlName="email" 
+            placeholder="Enter Email" />
+        
+        @if (userForm.get('email')?.touched &&
+         userForm.get('email')?.invalid) {
+
+        @if (userForm.get('email')?.errors?.['required']) {
+            <small style="color: var(--p-red-500); font-size: 12px;">
+                Email is required.
+            </small>
+        }
+
+        @if (userForm.get('email')?.errors?.['email']) {
+            <small style="color: var(--p-red-500); font-size: 12px;">
+                Enter valid email address.
+            </small>
+        }
+    }
+    </div>
+
+
+
+    <!-- Password -->
+<div style="display: flex; flex-direction: column; gap: 0.5rem;">
+    <label for="password">Password <span style="color: red;">*</span></label>
+
+    <p-password autocomplete="new-password"
+        id="password"
+        formControlName="password"
+        placeholder="Enter Password"
+        styleClass="w-full">
+    </p-password>
+
+   @if (userForm.get('password')?.touched &&
+         userForm.get('password')?.invalid) {
+
+        @if (userForm.get('password')?.errors?.['required']) {
+            <small style="color: var(--p-red-500); font-size: 12px;">
+                Password is required.
+            </small>
+        }
+
+        @if (userForm.get('password')?.errors?.['minlength']) {
+            <small style="color: var(--p-red-500); font-size: 12px;">
+                Password must be at least 6 characters.
+            </small>
+        }
+    }
+</div>
+
+<!-- Confirm Password -->
+<div style="display: flex; flex-direction: column; gap: 0.5rem;">
+    <label for="confirmPassword">Confirm Password <span style="color: red;">*</span></label>
+
+    <p-password
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        placeholder="Confirm Password"
+        styleClass="w-full">
+    </p-password>
+
+   @if (userForm.get('confirmPassword')?.touched &&
+         userForm.get('confirmPassword')?.invalid) {
+
+        @if (userForm.get('confirmPassword')?.errors?.['required']) {
+            <small style="color: var(--p-red-500); font-size: 12px;">
+                Confirm Password is required.
+            </small>
+        }
+    }
+
+    @if (userForm.errors?.['passwordMismatch']
+        && userForm.get('confirmPassword')?.touched) {
+
+        <small style="color: var(--p-red-500); font-size: 12px;">
+            Password and Confirm Password do not match.
+        </small>
+    }
+</div>
+
+    <!-- 2. Parent Category Field (NON-MANDATORY / OPTIONAL) -->
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="parentCat">User Roles <span style="color: red;">*</span></label>
+        <p-select 
+            id="parentCat"
+            [options]="userRoles" 
+            formControlName="role"
+            optionLabel="lkpDesc" 
+            optionValue="lkpDesc"
+            placeholder="Select Role" 
+            [filter]="true"
+            filterBy="lkpDesc" 
+            [showClear]="true"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="20" 
+            scrollHeight="190px">
+        </p-select>
+    </div>
+
+
+</form>
+<div style="display: flex; justify-content: flex-end; gap: 0.5rem; padding-top: 1rem; border-top: 1px solid var(--p-surface-200);">
+        <p-button label="Cancel" [text]="true" (onClick)="closePopup()"></p-button>
+        <p-button label="Save User" icon="pi pi-save" (onClick)="confirmSave($event)"></p-button>
+    </div>
+
+

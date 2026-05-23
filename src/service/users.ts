@@ -5,42 +5,41 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class Common {
+export class UserService {
 
   constructor(public httpClient: HttpClient){
 
   }
   local:string = 'http://localhost:4300/'
 
-  categoryUrl: any = '/api/category/v1.0/'
+  userUrl: any = 'api/users/v1.0/'
 
-  categoryService = 'pos-service'
+  userService = 'pos-service'
 
-  getCategorySummary(request: any){
-    let url = this.local + this.categoryService + this.categoryUrl + 'summary'
+  getUserSummary(request: any){
+    let url = this.local + this.userService + this.userUrl + 'summary'
     return this.POSTAPI(request,url)
   }
 
-  createCategory(request: any) {
-    let url = this.local + this.categoryService + this.categoryUrl + 'create'
+  createUser(request: any) {
+    let url = this.local + this.userService + this.userUrl + 'create'
     return this.POSTAPI(request, url)
   }
 
-  getCategory(request: any) {
-    let url = this.local + this.categoryService + this.categoryUrl + 'category'
+  getUsers(request: any) {
+    let url = this.local + this.userService + this.userUrl + 'category'
     return this.POSTAPI(request, url)
   }
 
   view(request: any) {
-    let url = this.local + this.categoryService + this.categoryUrl + 'view'
+    let url = this.local + this.userService + this.userUrl + 'view'
     return this.POSTAPI(request, url)
   }
 
   getDashboardCount(){
-    let url = this.local + this.categoryService + this.categoryUrl + 'dashboard'
+    let url = this.local + this.userService + this.userUrl + 'dashboard'
     return this.GETAPI(url)
   }
-  
 
 
   GETAPI(url: any): Observable<any> {

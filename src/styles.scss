@@ -125,7 +125,7 @@ p-iconfield, .p-iconfield {
   /* 1. Correctly position the search icon absolutely inside the container */
   p-inputicon, .p-inputicon, i.pi {
     position: absolute !important;
-    left: 12px !important; /* Positions it neatly inside the left margin boundary */
+    left: 183px !important; /* Positions it neatly inside the left margin boundary */
     top: 50% !important;
     color: var(--p-surface-400) !important; /* Muted aesthetic icon tint */
     pointer-events: none !important; /* Pass click interactions through to the input */
@@ -140,3 +140,534 @@ p-iconfield, .p-iconfield {
 }
 
 
+
+.overlay-hidden {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999; /* Ensures it sits above all other components */
+  pointer-events: none; /* Allows users to still click items underneath if needed */
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+/* Active flash states with opacity so content is slightly visible underneath */
+.overlay-active.flash-green {
+  background-color: rgba(46, 204, 113, 0.85); /* Solid green with slight transparency */
+}
+
+.overlay-active.flash-red {
+  background-color: rgba(231, 76, 60, 0.85); /* Solid red with slight transparency */
+}
+
+
+.dynamic-brand-btn {
+    background-color: var(--p-primary-500) !important; /* Uses your custom theme accent */
+    border-color: var(--p-primary-500) !important;
+    color: var(--p-primary-contrast-color) !important; /* Automatically picks high-contrast text color */
+}
+.dynamic-brand-btn:hover {
+    background-color: var(--p-primary-600) !important; /* Darker tint on hover */
+}
+
+.metrics-row .badge-icons i {
+  font-size: xx-large !important;
+
+  &.pi-check-circle {
+    color: var(--p-green-600) !important;
+  }
+  &.pi-times-circle {
+    color: var(--p-red-600) !important;
+  }
+  &.pi-folder {
+    color: var(--p-blue-600) !important;
+  }
+  &.pi-box {
+    color: var(--p-amber-600) !important;
+  }
+}
+
+.metrics-row .accounts-bg {
+  background-color: unset !important;
+  color: unset !important;
+}
+
+.metrics-row .amount {
+  font-size: xx-large !important;
+  color: unset !important;
+}
+
+.metrics-row .status-card {
+  flex: 0.2 !important;
+  min-width: unset !important;
+}
+
+.status-msg{
+  width: fit-content !important;
+}
+
+
+.custom-search-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    color: #94a3b8; /* Modern slate grey icon color */
+    font-size: 0.95rem;
+    pointer-events: none;
+  }
+
+    // .search-input {
+    //   padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+    //   /* Leaves exact room on left for icon */
+    //   font-size: 0.875rem;
+    //   /* Soft border color */
+    //   border-radius: 6px;
+    //   /* Smooth rounded corners */
+    //   transition: all 0.2s ease-in-out;
+    //   border-color: var(--p-form-field-border-color);
+  
+    //   &:focus {
+    //     border-color: var(--p-form-field-focus-border-color);
+    //     box-shadow: var(--p-focus-ring-shadow);
+    //   }
+    //   &:active {
+    //     background-color: var(--p-content-hover-background);
+    // }
+    // }
+
+    /* Premium Card Table Base Wrapper Container */
+.table-container-card {
+  background: var(--p-surface-0);
+  border: 1px solid var(--p-surface-200);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+/* Structural Header Action Toolbar Row Group layout */
+.table-header-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 0.5rem 0 0.5rem 0;
+  border-bottom: 1px solid var(--p-surface-100);
+}
+
+/* Left Alignment Group Control Properties */
+.toolbar-left-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+
+  .table-title {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--p-surface-900);
+    letter-spacing: -0.5px;
+  }
+
+  .header-add-btn {
+    border-radius: 6px !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    box-shadow: 0 2px 6px rgba(34, 197, 94, 0.2);
+  }
+
+  // .search-bar-input {
+  //   width: 240px !important;
+  //   border-radius: 6px !important;
+  // }
+}
+
+/* Right Alignment Group Control Properties (Export Controls) */
+.toolbar-right-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  .export-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--p-surface-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .export-btn {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    transition: all 0.2s ease-in-out !important;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+  }
+}
+
+/* Table Body Row Improvements */
+:host ::ng-deep {
+  .p-datatable-thead > tr > th {
+    background-color: var(--p-surface-50) !important;
+    color: var(--p-surface-700) !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    padding: 0.5rem !important;
+    border-bottom: 2px solid var(--p-surface-200) !important;
+    font-family: 'inter-bold' !important;
+  }
+
+  .p-datatable-tbody > tr {
+    
+    & > td {
+      padding: 1rem !important;
+      border-bottom: 1px solid var(--p-surface-100) !important;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+  }
+}
+
+/* Custom Component Layout Enhancements */
+.text-primary-color { color: var(--p-primary-color); }
+.text-secondary-color { color: var(--p-surface-600); }
+
+.badge-order {
+  background: var(--p-surface-100);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.truncate-desc {
+  display: inline-block;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Status Pill Badges Configuration profiles */
+/* 1. Base Status Badge Layout Alignment */
+.status-badge {
+  display: inline-flex; /* Changed to inline-flex to align dot and text perfectly side-by-side */
+  align-items: center;
+  gap: 6px; /* Space between the dot and the text string */
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+
+  /* 2. Base Dot Styling and Pulse/Blink Animation */
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    /* Loops an opacity change over 1.5 seconds endlessly */
+    animation: blink-animation 1.5s infinite ease-in-out; 
+  }
+}
+
+/* 3. Contextual Color Profiles matching your theme structures */
+
+.status-active {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(34, 197, 94, 0.08));
+    color: #166534;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    transition: all 0.2s ease-in-out;
+}
+
+.status-active:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.15);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.22), rgba(34, 197, 94, 0.1));
+}
+
+.status-active::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    animation: blink 1.2s infinite ease-in-out;
+}
+
+.status-inactive {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(239, 68, 68, 0.08));
+    color: #991b1b;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    transition: all 0.2s ease-in-out;
+}
+
+.status-inactive:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.15);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(239, 68, 68, 0.1));
+}
+
+.status-inactive::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background-color: #ef4444;
+    border-radius: 50%;
+    animation: blink 1.2s infinite ease-in-out;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(0.85);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Row Action Buttons Styling */
+/* Premium SaaS Action Buttons Design System */
+.row-action-btn {
+  width: 2.25rem !important; /* Slightly larger for better clickable rhythm */
+  height: 2.25rem !important;
+  border-radius: 8px !important; /* Modern squircle/rounded corner instead of old 50% circle */
+  background: var(--p-surface-0) !important; /* Solid surface card base */
+  border: 1px solid var(--p-surface-200) !important; /* Clean thin divider boundary */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important; /* Muted modern elevation layer */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important; /* High-end fluid easing path */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  /* Global micro-hover scaling for all action buttons */
+  &:hover:not(:disabled) {
+    transform: translateY(-2px); /* Premium lifting motion */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important; /* Expanded floating elevation shadow */
+  }
+
+  /* 1. View Details Action (Clean Indigo/Slate Theme) */
+  &.view-btn { 
+    color: var(--p-surface-600) !important; 
+    
+    &:hover { 
+      color: var(--p-primary-color) !important;
+      border-color: var(--p-primary-200) !important;
+      background: var(--p-primary-50) !important; 
+    } 
+  }
+
+  /* 2. Edit Action (Luxury Amber Gold Theme) */
+  &.edit-btn { 
+    color: #d97706 !important; /* Richer amber tone */
+    
+    &:hover { 
+      color: #b45309 !important;
+      border-color: #fde68a !important;
+      background: #fef3c7 !important; 
+    } 
+  }
+
+  /* 3. Delete Action (Modern Soft Coral Crimson Theme) */
+  &.delete-btn { 
+    color: #dc2626 !important; /* Elegant primary red */
+    
+    &:hover { 
+      color: #b91c1c !important;
+      border-color: #fecaca !important;
+      background: #fee2e2 !important; 
+    } 
+  }
+}
+
+
+:host ::ng-deep {
+
+  /* Column Reorder Drag Visual */
+  .p-datatable .p-datatable-thead > tr > th.p-reorderable-column {
+    cursor: move;
+    user-select: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .p-datatable .p-datatable-thead > tr > th.p-reorderable-column:hover {
+    background: var(--p-surface-100) !important;
+  }
+
+  /* Column Resize Handle */
+  .p-column-resizer {
+    width: 4px !important;
+    background: transparent;
+    transition: all 0.2s ease;
+  }
+
+  .p-column-resizer:hover {
+    background: var(--p-primary-color) !important;
+  }
+
+  /* Selected Row Styling */
+  .p-datatable .p-datatable-tbody > tr.p-highlight {
+    background: rgba(59, 130, 246, 0.08) !important;
+    color: inherit !important;
+  }
+
+  /* Smooth Row Hover */
+  .p-datatable .p-datatable-tbody > tr {
+    transition:
+      background-color 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  .p-datatable .p-datatable-tbody > tr:hover {
+    background: var(--p-surface-50) !important;
+  }
+
+  /* Sticky Header Feel */
+  .p-datatable-wrapper {
+    overflow: auto;
+    scrollbar-width: thin;
+  }
+
+  .p-datatable-thead > tr > th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  /* Better Scrollbars */
+  .p-datatable-wrapper::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .p-datatable-wrapper::-webkit-scrollbar-track {
+    background: var(--p-surface-100);
+    border-radius: 10px;
+  }
+
+  .p-datatable-wrapper::-webkit-scrollbar-thumb {
+    background: var(--p-surface-400);
+    border-radius: 10px;
+  }
+
+  .p-datatable-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--p-surface-500);
+  }
+
+  /* Checkbox Modernization */
+  .p-checkbox .p-checkbox-box {
+    border-radius: 6px !important;
+  }
+
+  /* Filter Icon Better Alignment */
+  .p-column-filter-menu-button {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+
+  /* Sorting Icon Animation */
+  .p-sortable-column-icon {
+    transition: transform 0.2s ease;
+  }
+
+  .p-sortable-column:hover .p-sortable-column-icon {
+    transform: scale(1.1);
+  }
+
+  /* Pagination Enhancement */
+  .p-paginator {
+    border-top: 1px solid var(--p-surface-200);
+    padding: 1rem;
+    background: var(--p-surface-0);
+  }
+
+  /* Dragging Column Visual */
+  .p-datatable .p-datatable-thead > tr > th.p-datatable-reorder-indicator-up,
+  .p-datatable .p-datatable-thead > tr > th.p-datatable-reorder-indicator-down {
+    color: var(--p-primary-color) !important;
+  }
+
+  /* Better Cell Alignment */
+  .p-datatable td,
+  .p-datatable th {
+    vertical-align: middle;
+  }
+
+  /* Loading Skeleton Alignment */
+  .p-skeleton {
+    border-radius: 6px !important;
+  }
+
+  /* Premium Empty Message */
+  .p-datatable-emptymessage td {
+    padding: 3rem !important;
+    color: var(--p-surface-500);
+    font-weight: 500;
+    text-align: center;
+  }
+
+}
+
+.p-paginator {
+  .p-select{
+    width: 6% !important;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.act.p-button {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  border: none !important;
+  color: #5f6368 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+
+  &:hover {
+    background: #f1f3f4 !important;
+  }
+
+  &.view:hover   { background: #e8f0fe !important; color: #1967d2 !important; }
+  &.edit:hover   { background: #e6f4ea !important; color: #137333 !important; }
+  &.delete:hover { background: #fce8e6 !important; color: #c5221f !important; }
+}

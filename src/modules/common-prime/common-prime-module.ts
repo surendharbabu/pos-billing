@@ -18,6 +18,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { PasswordModule } from 'primeng/password';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { ToastModule } from 'primeng/toast';
     InputIconModule,
     TableModule,
     ButtonModule,DataViewModule, SkeletonModule,CommonModule,ButtonModule,SelectButtonModule,FormsModule,DialogModule,ConfirmPopupModule,ToastModule,MessageModule, ListboxModule,
-    PopoverModule,SvgIconComponent,SelectModule,ReactiveFormsModule
+    PopoverModule,SvgIconComponent,SelectModule,ReactiveFormsModule,PasswordModule
   ],
   exports: [
     CommonModule,
@@ -42,7 +43,7 @@ import { ToastModule } from 'primeng/toast';
     InputIconModule,
     TableModule,
     ButtonModule,DataViewModule, SkeletonModule,CommonModule,ButtonModule,SelectButtonModule,FormsModule,DialogModule,ConfirmPopupModule,ToastModule,MessageModule, ListboxModule,
-    PopoverModule,SvgIconComponent,SelectModule,ReactiveFormsModule
+    PopoverModule,SvgIconComponent,SelectModule,ReactiveFormsModule,PasswordModule
   ]
 })
 export class CommonPrimeModule {}

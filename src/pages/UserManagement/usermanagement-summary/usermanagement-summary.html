@@ -1,0 +1,563 @@
+<!-- Action Header Row Panel -->
+<div class="bannimg">
+
+</div>
+
+
+<div class="card">
+
+
+    <div class="grid align-items-center mb-4">
+
+  
+            <div class="col-3 text-center"><h1 class="mr-5">User Analytics</h1></div>
+            <div class="col-1">
+
+            
+            <svg-icon class="mr-5"  src="/avator.svg"></svg-icon>
+            </div>
+       <div class="col-8">
+        <div class="metrics-row flex justify-content-end gap-3 flex-wrap">
+
+            @if (!usersCount()) {
+            <!-- Generate 4 identical card placeholders matching your layout skeleton -->
+            @for (skele of [1, 2, 3, 4]; track skele) {
+            <div class="status-card structural-skeleton">
+                <div class="card-header">
+                    <p-skeleton width="60%" height="1.5rem"></p-skeleton>
+                    <p-skeleton shape="circle" size="2.5rem"></p-skeleton>
+                </div>
+                <div class="card-value" style="margin-top: 1rem;">
+                    <p-skeleton width="80%" height="2rem"></p-skeleton>
+                </div>
+            </div>
+            }
+            } @else{
+            <div class="status-card">
+                <div class="card-header">
+                    <span class="card-title mr-5">Total Users</span>
+                    <div class="badge-icons accounts-bg"><i class="pi pi-check-circle"></i></div>
+                </div>
+                <div class="card-value">
+                    <span class="amount">{{usersCount().totalUsers}}</span>
+                </div>
+            </div>
+            <div class="status-card">
+                <div class="card-header">
+                    <span class="card-title mr-5">Active Users</span>
+                    <div class="badge-icons accounts-bg"><i class="pi pi-times-circle"></i></div>
+                </div>
+                <div class="card-value">
+                    <span class="amount">{{usersCount().activeUsers}}</span>
+                </div>
+            </div>
+            <div class="status-card">
+                <div class="card-header">
+                    <span class="card-title mr-5">Admin Users</span>
+                    <div class="badge-icons accounts-bg"><i class="pi pi-folder"></i></div>
+                </div>
+                <div class="card-value">
+                    <span class="amount">{{usersCount().adminUsers}}</span>
+                </div>
+            </div>
+            <div class="status-card">
+                <div class="card-header">
+                    <span class="card-title mr-5">Cashier Users</span>
+                    <div class="badge-icons accounts-bg"><i class="pi pi-box"></i></div>
+                </div>
+                <div class="card-value">
+                    <span class="amount">{{usersCount().cashierUsers}}</span>
+                </div>
+            </div>
+        
+            }
+        </div>
+        </div>
+          </div>
+
+  
+          <div class="">
+              <button pButton type="button" icon="pi pi-plus" label="Add Users" (click)="openCategoryDialog('add','')">
+              </button>
+          </div>
+    <!-- <div class="flex gap-2 mb-1">
+    
+    
+        <div class="">
+            <p-iconfield>
+                <p-inputicon class="pi pi-search"></p-inputicon>
+                <input pInputText type="text" placeholder="Search categories..." class="search-input" />
+            </p-iconfield>
+        </div>
+        <div class="">
+            <button pButton type="button" icon="pi pi-file-excel" label="Export" class="p-button-secondary">
+            </button>
+        </div>
+    
+    </div> -->
+
+<div class="table-container-card">
+
+    <p-table 
+        #dt
+        [value]="isLoading() ? skeletonRows : products()"
+
+        [paginator]="!isLoading()"
+        [rows]="5"
+        [rowsPerPageOptions]="[5,10,20]"
+
+        responsiveLayout="scroll"
+[showCurrentPageReport]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} users"
+        scrollable="true"
+        scrollHeight="500px"
+
+        [resizableColumns]="true"
+        columnResizeMode="expand"
+
+        [reorderableColumns]="true"
+
+        [showGridlines]="true"
+        [stripedRows]="true"
+
+        [rowHover]="true"
+
+        sortMode="multiple"
+
+        filterDisplay="menu"
+
+        selectionMode="multiple"
+        dataKey="id"
+
+        [globalFilterFields]="[
+            'userName',
+            'firstName',
+            'description',
+            'status'
+        ]"
+        
+
+        styleClass="p-datatable-sm p-datatable-gridlines">
+
+        <!-- HEADER TOOLBAR -->
+        <ng-template pTemplate="caption">
+
+            <div class="table-header-toolbar">
+
+                <div class="toolbar-left-group">
+
+                    <p-iconfield iconPosition="left" class="header-search-field">
+
+                        <p-inputicon class="pi pi-search"></p-inputicon>
+
+                        <input 
+                            pInputText 
+                            type="text"
+                            class="p-inputtext-sm search-bar-input"
+                            placeholder="Quick Search..."
+                            (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+
+                    </p-iconfield>
+
+                </div>
+
+                <div class="toolbar-right-group">
+
+                    <button 
+                        pButton
+                        type="button"
+                        icon="pi pi-file-excel"
+                        class="p-button-success p-button-rounded p-button-outlined export-btn">
+                    </button>
+
+                    <button 
+                        pButton
+                        type="button"
+                        icon="pi pi-file-pdf"
+                        class="p-button-danger p-button-rounded p-button-outlined export-btn">
+                    </button>
+
+                    <button 
+                        pButton
+                        type="button"
+                        icon="pi pi-file"
+                        class="p-button-info p-button-rounded p-button-outlined export-btn"
+                        (click)="triggerCsvExport(dt)">
+                    </button>
+
+                </div>
+
+            </div>
+
+        </ng-template>
+
+        <!-- TABLE HEADER -->
+        <ng-template pTemplate="header">
+
+            <tr>
+
+                <!-- <th style="width:60px">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th> -->
+
+                <th
+                    pSortableColumn="userName"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="userName">
+
+                    <div class="flex align-items-center justify-content-between">
+
+                        <span>User Name</span>
+
+                        <div class="flex align-items-center gap-1">
+
+                            <p-sortIcon field="userName"></p-sortIcon>
+
+                            <p-columnFilter
+                                type="text"
+                                field="userName"
+                                display="menu">
+                            </p-columnFilter>
+
+                        </div>
+
+                    </div>
+
+                </th>
+
+                <th
+                    pSortableColumn="firstName"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="firstName">
+
+                    <div class="flex align-items-center justify-content-between">
+
+                        <span>First Name</span>
+
+                        <div class="flex align-items-center gap-1">
+
+                            <p-sortIcon field="firstName"></p-sortIcon>
+
+                            <p-columnFilter
+                                type="text"
+                                field="firstName"
+                                display="menu">
+                            </p-columnFilter>
+
+                        </div>
+
+                    </div>
+
+                </th>
+
+                <th
+                    pSortableColumn="lastName"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="lastName">
+
+                    <div class="flex align-items-center justify-content-between">
+
+                        <span>Last Name</span>
+
+                        <div class="flex align-items-center gap-1">
+
+                            <p-sortIcon field="lastName"></p-sortIcon>
+
+                            <p-columnFilter
+                                type="numeric"
+                                field="lastName"
+                                display="menu">
+                            </p-columnFilter>
+
+                        </div>
+
+                    </div>
+
+                </th>
+
+                <th
+                
+                    pReorderableColumn
+                    pResizableColumn
+                    field="description">
+
+                    <div class="flex align-items-center justify-content-between">
+
+                        <span>Mobile Number</span>
+
+                        <p-columnFilter
+                            type="text"
+                            field="description"
+                            display="menu">
+                        </p-columnFilter>
+
+                    </div>
+
+                </th>
+
+                <th
+                    pSortableColumn="productCount"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="productCount">
+
+                    <div class="flex align-items-center justify-content-between">
+
+                        <span>Email</span>
+
+                        <div class="flex align-items-center gap-1">
+
+                            <p-sortIcon field="productCount"></p-sortIcon>
+
+                            <p-columnFilter
+                                type="numeric"
+                                field="productCount"
+                                display="menu">
+                            </p-columnFilter>
+
+                        </div>
+
+                    </div>
+
+                </th>
+
+                <th
+                    pSortableColumn="productCount"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="productCount">
+
+                    <div class="flex align-items-center justify-content-between">
+
+                        <span>Role</span>
+
+                        <div class="flex align-items-center gap-1">
+
+                            <p-sortIcon field="productCount"></p-sortIcon>
+
+                            <p-columnFilter
+                                type="numeric"
+                                field="productCount"
+                                display="menu">
+                            </p-columnFilter>
+
+                        </div>
+
+                    </div>
+
+                </th>
+                <th
+                    pSortableColumn="productCount"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="productCount">
+
+                    <div class="flex align-items-center justify-content-between">
+
+                        <span>Created Date</span>
+
+                        <div class="flex align-items-center gap-1">
+
+                            <p-sortIcon field="productCount"></p-sortIcon>
+
+                            <p-columnFilter
+                                type="numeric"
+                                field="productCount"
+                                display="menu">
+                            </p-columnFilter>
+
+                        </div>
+
+                    </div>
+
+                </th>
+                <th
+                    pSortableColumn="status"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="status">
+
+                    <div class="flex align-items-center justify-content-between">
+
+                        <span>Status</span>
+
+                        <div class="flex align-items-center gap-1">
+
+                            <p-sortIcon field="status"></p-sortIcon>
+
+                            <p-columnFilter
+                                type="text"
+                                field="status"
+                                display="menu">
+                            </p-columnFilter>
+
+                        </div>
+
+                    </div>
+
+                </th>
+                
+
+                <th
+                    pReorderableColumn
+                    pResizableColumn
+                    style="text-align:center; width:150px;">
+
+                    Actions
+
+                </th>
+
+            </tr>
+
+        </ng-template>
+
+        <!-- TABLE BODY -->
+        <ng-template pTemplate="body" let-item>
+
+            <tr *ngIf="isLoading()">
+
+                <td><p-skeleton></p-skeleton></td>
+                <td><p-skeleton></p-skeleton></td>
+                <td><p-skeleton></p-skeleton></td>
+                <td><p-skeleton></p-skeleton></td>
+                <td><p-skeleton></p-skeleton></td>
+                <td><p-skeleton></p-skeleton></td>
+                <td><p-skeleton></p-skeleton></td>
+                  <td>
+
+            <div class="flex gap-2 justify-content-center">
+
+                <p-skeleton
+                    shape="circle"
+                    size="2rem">
+                </p-skeleton>
+
+                <p-skeleton
+                    shape="circle"
+                    size="2rem">
+                </p-skeleton>
+
+                <p-skeleton
+                    shape="circle"
+                    size="2rem">
+                </p-skeleton>
+
+            </div>
+
+        </td>
+
+            </tr>
+
+            <tr *ngIf="!isLoading()">
+
+                <!-- <td>
+                    <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                </td> -->
+
+                <td>
+                    {{ item.userName || '-' }}
+                </td>
+
+                <td>
+                    {{ item.firstName || '-' }}
+                </td>
+
+                <td>
+                    {{ item.lastName || 0 }}
+                </td>
+                <td>
+                    {{ item.mobileNo || '-' }}
+                </td>
+
+                <td>
+                    {{ item.email || 0 }}
+                </td>
+                <td>
+                    {{ item.role || '-' }}
+                </td>
+
+                <td>
+                    {{ item.crtDate || 0 }}
+                </td>
+                 <!-- <td>
+                    {{ item.status || 0 }}
+                </td> -->
+
+                <td>
+
+                    <span 
+                        [class]="
+                            item?.status?.toLowerCase() === 'active'
+                            ? 'status-active'
+                            : 'status-inactive'
+                        ">
+
+                        {{ item?.status || 'Inactive' }}
+
+                    </span>
+
+                </td>
+
+                <td>
+                    <div class="actions">
+
+                        <button pButton type="button"
+                            icon="pi pi-eye"
+                            class="act view"
+                            pTooltip="View"
+                            tooltipPosition="top">
+                        </button>
+
+                        <button pButton type="button"
+                            icon="pi pi-pencil"
+                            class="act edit"
+                            pTooltip="Edit"
+                            tooltipPosition="top">
+                        </button>
+
+                        <button pButton type="button"
+                            icon="pi pi-trash"
+                            class="act delete"
+                            pTooltip="Delete"
+                            tooltipPosition="top">
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        </ng-template>
+
+    </p-table>
+
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+     <p-popover #menuOverlay [dismissable]="true">
+    <p-listbox 
+      [options]="menuOptions" 
+      [(ngModel)]="selectedOption" 
+      optionLabel="label" 
+      (onChange)="onSelectOption($event, menuOverlay)"
+      [style]="{'border': 'none', 'width': '14rem'}"
+      >
+    </p-listbox>
+  </p-popover>
+
+<p-toast />
+
+
