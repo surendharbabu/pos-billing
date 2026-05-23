@@ -1,0 +1,14 @@
+  {
+  "/category-service": {
+    "target": "http://172.27.5.121:8080",
+    "pathRewrite": {
+      "^/category-service": "/"
+    },
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "headers": {
+      "Connection": "keep-alive"
+    }
+  }
+}

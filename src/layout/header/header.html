@@ -1,0 +1,17 @@
+<div>
+    <p-toolbar styleClass="layout-header">
+        <div class="p-toolbar-group-start">
+            <p-button icon="pi pi-bars" (onClick)="toggleSidebar()" [text]="true" />
+            <span class="font-bold ml-2 text-xl">My App Logo</span>
+        </div>
+
+        <div class="p-toolbar-group-end">
+            <p-button [icon]="isDarkMode ? 'pi pi-sun' : 'pi pi-moon'" [text]="true" (onClick)="toggleTheme()" />
+            <p-button icon="pi pi-palette" [text]="true" (onClick)="myDrawer.openDrawer()" />
+            <p-button icon="pi pi-user" [text]="true" />
+        </div>
+    </p-toolbar>
+</div>
+<app-header-themes #myDrawer></app-header-themes>
+
+

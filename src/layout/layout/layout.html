@@ -1,0 +1,18 @@
+<div class="mgs-blob mgs-blob--top-left"></div>
+<div class="mgs-blob mgs-blob--top-right"></div>
+<div class="mgs-blob mgs-blob--mid-right"></div>
+<div class="main-container">
+    <app-header (sidebarStateEmit)="sidebarToggleAction($event)" />
+    <div class="app-container" [ngClass]="sidebarState">
+        <app-sidebar />
+        <div class="main-wrapper">
+            <main class="main-content mb-4">
+                <!-- <app-header-design /> -->
+                <router-outlet></router-outlet>
+            </main>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,142 @@
+/* You can add global styles to this file, and also import other style files */
+
+@use '../public/scss/custom';
+@use '../public/scss/layout';
+
+// @font-face{
+//   font-family: "inter-sample";
+//   src: url(../public/font/Inter/Inter-SemiBold.ttf) format('truetype');
+// }
+// @font-face{
+//   font-family: "inter-bold";
+//   src: url(../public/font/Inter/Inter-Bold.ttf) format('truetype');
+// }
+
+body {
+  font-family: "inter-sample";
+}
+
+
+/* You can add global styles to this file, and also import other style files */
+/* 1. Define the flashlight animation */
+@keyframes flashlight-effect {
+  0% { opacity: 0; }
+  10% { opacity: 0.1; } /* Quick bright flash */
+  100% { opacity: 0; }  /* Smooth fade away */
+}
+
+/* 2. Style the dynamic flash element */
+.app-flashlight-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important; /* Users can still click through it */
+  z-index: 2147483647 !important; /* Maximum possible z-index value in browsers */
+  animation: flashlight-effect 2s ease-out forwards;
+}
+
+/* 3. Color variants */
+.flash-green-light { background-color: #00ff00 !important; }
+.flash-red-light { background-color: #ff0000 !important; }
+
+
+html.p-dark, html.p-dark body {
+  background-color: var(--p-content-background) !important;
+
+  .layout-header {
+
+    background-color: var(--p-content-background) !important;
+  }
+}
+
+html {
+  background-color: var(--p-surface-50);
+}
+
+
+input, 
+textarea, 
+.p-select {
+  box-sizing: border-box !important; 
+  width: 100% !important; 
+  height: 40px !important;
+  background-color: var(--p-surface-0) !important; 
+  border: 1px solid var(--p-surface-300) !important; 
+  border-radius: 6px !important;
+  padding: 10px 14px !important;
+  color: var(--p-surface-900) !important;
+  font-size: 14px !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  &:hover:not(:disabled) {
+    border-color: var(--p-surface-400) !important;
+  }
+  &:focus, 
+  &.p-focus,
+  &.p-select-focus {
+    outline: none !important;
+    border-color: var(--p-primary-color) !important;
+    box-shadow: 0 0 0 3px var(--p-primary-100) !important; 
+  }
+&.ng-invalid.ng-touched,
+&.ng-invalid.ng-dirty{
+    border-color: var(--p-red-500) !important;
+    
+    &:focus {
+      box-shadow: 0 0 0 3px var(--p-red-100) !important;
+    }
+  }
+  &:disabled, 
+  &.p-disabled {
+    background-color: var(--p-surface-100) !important;
+    color: var(--p-surface-400) !important;
+    cursor: not-allowed !important;
+    border-color: var(--p-surface-200) !important;
+  }
+
+  .p-select-overlay,
+.p-component.p-overlay {
+  margin-top: -2px !important; /* Pulls the menu box directly up to touch the border edge */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important; /* Clean floating shadows profile */
+}
+}
+
+/* 🟢 Override Textarea Height separately so it can still display multiple rows */
+textarea {
+  height: auto !important; /* Resets the 42px restriction */
+  min-height: 90px !important; /* Sets a taller baseline frame matching your row count */
+}
+
+/* 🟢 Sync the internal vertical alignment of text inside the PrimeNG select component box */
+.p-select {
+  display: inline-flex !important;
+  align-items: center !important; /* Centers the placeholder and selected value text perfectly */
+}
+
+/* Fix the icon and placeholder overlap globally or locally */
+p-iconfield, .p-iconfield {
+  position: relative !important;
+  display: inline-flex !important;
+  width: 100% !important;
+  align-items: center !important;
+
+  /* 1. Correctly position the search icon absolutely inside the container */
+  p-inputicon, .p-inputicon, i.pi {
+    position: absolute !important;
+    left: 12px !important; /* Positions it neatly inside the left margin boundary */
+    top: 50% !important;
+    color: var(--p-surface-400) !important; /* Muted aesthetic icon tint */
+    pointer-events: none !important; /* Pass click interactions through to the input */
+  }
+
+  /* 2. Push input text and placeholder text to the right to stop overlapping */
+  input.p-inputtext,
+  .search-input {
+    padding-left: 36px !important; /* 👈 CRITICAL: Creates clear space for the icon */
+    width: 100% !important;
+  }
+}
+
+

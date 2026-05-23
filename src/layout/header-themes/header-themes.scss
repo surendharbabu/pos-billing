@@ -1,0 +1,242 @@
+.ft-grid {
+  display              : grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap                  : 8px;
+}
+
+.ft-card {
+  border       : 2px solid #e3e3ef;       // matches .preview-card
+  border-radius: 10px;                    // matches your card radius
+  overflow     : hidden;
+  cursor       : pointer;
+  background   : #fafafa;                 // matches .preview-card
+  transition   : border-color 0.18s, box-shadow 0.18s, transform 0.15s;
+
+  &:hover {
+    border-color: #5057d5;
+    box-shadow  : 0 0 0 3px rgba(80, 87, 213, 0.13);
+    transform   : translateY(-1px);
+  }
+
+  &--selected {
+    border-color: #5057d5;               // matches .preview-card.selected
+    box-shadow  : 0 0 0 3px rgba(80, 87, 213, 0.13);
+  }
+
+  &--custom {
+    &.ft-card--selected {
+      border-color: #9090b0;
+      box-shadow  : 0 0 0 3px rgba(144, 144, 176, 0.15);
+    }
+  }
+}
+
+// ─── Mini dashboard preview inside card ───
+.ft-preview {
+  position     : relative;
+  height       : 60px;
+  display      : flex;
+  overflow     : hidden;
+  border-radius: 8px 8px 0 0;
+
+  &--custom-bg {
+    background: #f0f0f8;
+  }
+}
+
+// Sidebar strip inside preview
+.ft-preview__sb {
+  width          : 32%;
+  height         : 100%;
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  padding-top    : 8px;
+  gap            : 4px;
+  flex-shrink    : 0;
+
+  &--custom {
+    background: #e3e3ef;
+  }
+}
+
+// Dots (nav items) inside sidebar strip
+.ft-preview__dot {
+  width        : 55%;
+  height       : 4px;
+  border-radius: 3px;
+  background   : rgba(255, 255, 255, 0.20);
+
+  &--active {
+    background: rgba(255, 255, 255, 0.62);
+    width     : 72%;
+  }
+}
+
+// Right panel (header + body)
+.ft-preview__right {
+  flex          : 1;
+  display       : flex;
+  flex-direction: column;
+  min-width     : 0;
+}
+
+// Header strip inside preview
+.ft-preview__hd {
+  height       : 18px;
+  width        : 100%;
+  flex-shrink  : 0;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+
+  &--custom {
+    background  : #f8f8fc;
+    border-bottom: 0.5px solid #e3e3ef;
+  }
+}
+
+// Body area inside preview
+.ft-preview__body {
+  flex           : 1;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  gap            : 4px;
+  padding        : 4px;
+
+  &--custom {
+    background: #ffffff;
+  }
+}
+
+// Tiny mock cards inside body
+.ft-preview__card {
+  flex         : 1;
+  height       : 16px;
+  background   : rgba(255, 255, 255, 0.62);
+  border-radius: 3px;
+}
+
+// Selected checkmark overlay
+.ft-check {
+  position       : absolute;
+  top            : 4px;
+  right          : 4px;
+  width          : 18px;
+  height         : 18px;
+  border-radius  : 50%;
+  background     : #5057d5;               // matches your brand color
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  box-shadow     : 0 1px 4px rgba(80, 87, 213, 0.35);
+
+  svg {
+    width : 10px;
+    height: 10px;
+  }
+}
+
+// ─── Info row below preview ───
+.ft-info {
+  padding   : 6px 8px 7px;
+  background: #fafafa;                   // matches .preview-card bg
+}
+
+.ft-label {
+  font-size    : 11px;
+  font-weight  : 700;
+  color        : #2a2a40;               // matches .sec-title color
+  font-family  : 'Nunito', sans-serif;
+  white-space  : nowrap;
+  overflow     : hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 1px;
+}
+
+.section {
+  padding      : 16px 20px 12px;
+  border-bottom: 1.5px solid #f3f3f7;
+}
+
+.sec-title {
+  font-size    : 12px;
+  font-weight  : 700;
+  color        : #2a2a40;
+  margin-bottom: 12px;
+  font-family  : 'Nunito', sans-serif;
+}
+
+.font-selection-container {
+  display: flex;
+  gap    : 16px;
+}
+
+.font-selection-container {
+  display: flex;
+  gap: 12px; /* Matches the tight gap in your image */
+}
+
+.font-selection-container {
+  display: flex;
+  gap: 12px;
+}
+
+.font-option-wrapper {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 136px;
+  height: 92px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fff;
+  overflow: hidden;
+
+  .font-preview {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .font-label {
+    height: 32px;
+    font-size: 10px;
+    color: #444;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.1;
+  }
+
+  &.active-font {
+    border: 2px solid #5057d5;
+
+    .font-preview {
+      background-color: #f0f2ff;
+      color: #5057d5;
+    }
+
+    .font-label {
+      color: #5057d5;
+      font-weight: 600;
+    }
+  }
+
+  &:hover:not(.active-font) {
+    border-color: #cbd5e1; // Muted grey-blue border
+
+    .font-preview {
+      background-color: #f1f5f9; // Slightly darker grey tint
+    }
+
+    .font-label {
+      color: #334155; // Slightly darker text
+    }
+  }
+}
+

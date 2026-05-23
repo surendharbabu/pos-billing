@@ -1,0 +1,176 @@
+.metrics-row {
+    display: flex;
+    gap: 12px;
+    flex-grow: 1;
+
+    .status-card {
+        flex: 1;
+        min-width: 210px;
+        background-color: var(--p-content-background);
+        border: 2px solid var(--p-toolbar-border-color);
+        border-radius: 10px;
+        padding: 12px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        box-shadow:
+            0 1px 3px rgba(0, 0, 0, 0.05),
+            0 4px 12px rgba(0, 0, 0, 0.03);
+
+
+        &:hover {
+            border-color: var(--p-primary-500);
+            box-shadow: 0 0 0 3px rgba(80, 87, 213, 0.13);
+            transform: translateY(-5px);
+        }
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-title {
+        // font-size: 12px;
+        font-weight: 600;
+    }
+
+    .badge-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .badge-icon i {
+        font-size: 12px;
+    }
+
+    /* Individual Badge Color Coding */
+    .accounts-bg {
+        background-color: #eef2ff;
+        color: #4f46e5;
+    }
+
+    .deposits-bg {
+        background-color: #f0fdf4;
+        color: #16a34a;
+    }
+
+    .cards-bg {
+        background-color: #faf5ff;
+        color: #9333ea;
+    }
+
+    .loans-bg {
+        background-color: #f8fafc;
+        color: #475569;
+    }
+
+    /* Value Font Sizes matching reference image scaling */
+    .card-value {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .currency {
+        font-size: 10px;
+        color: #94a3b8;
+        margin-right: 4px;
+        font-weight: 600;
+    }
+
+    .amount {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    .decimals {
+        font-size: 11px;
+        color: #94a3b8;
+        font-weight: 600;
+    }
+
+    /* Dots and indicators design rules */
+    .card-footer {
+        display: flex;
+        gap: 10px;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 8px;
+    }
+
+    .indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10px;
+        color: #64748b;
+        font-weight: 500;
+    }
+
+    .indicator span {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .active-dot span {
+        background-color: #22c55e;
+    }
+
+    .inactive-dot span {
+        background-color: #f59e0b;
+    }
+
+    .dormant-dot span {
+        background-color: #ef4444;
+    }
+
+}
+
+
+.card {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Target our custom input class safely */
+.form-field-input,
+:host ::ng-deep .form-field-input {
+  
+  /* Target raw inputs, textareas, and the internal PrimeNG Select container element */
+  &.p-inputtext,
+  &.p-textarea,
+  &.p-select,
+  .p-select { 
+    width: 100% !important; /* Forces all elements to fill width */
+    background-color: var(--p-surface-0) !important; 
+    border: 1px solid var(--p-surface-300) !important; 
+    border-radius: 6px !important;
+    padding: 10px 14px !important;
+    color: var(--p-surface-900) !important;
+    font-size: 14px !important;
+    box-shadow: none !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+
+    &:hover:not(:disabled) {
+      border-color: var(--p-surface-400) !important;
+    }
+
+    /* Focus States */
+    &:focus, 
+    &.p-focus,
+    &.p-select-focus {
+      outline: none !important;
+      border-color: var(--p-primary-color) !important;
+      box-shadow: 0 0 0 3px var(--p-primary-100) !important; 
+    }
+  }
+}
+
+

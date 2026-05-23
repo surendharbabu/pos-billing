@@ -1,0 +1,75 @@
+<form [formGroup]="categoryForm" style="padding: 1.5rem 0 0.5rem 0; display: flex; flex-direction: column; gap: 1.25rem;">
+    
+    <!-- 1. Category Name Field (Mandatory) -->
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="catName">Category Name *</label>
+        <input 
+            pInputText 
+            id="catName" 
+            formControlName="categoryName" 
+            placeholder="Enter category name" />
+        
+        @if (categoryForm.get('categoryName')?.touched && categoryForm.get('categoryName')?.invalid) {
+            <small style="color: var(--p-red-500); font-size: 12px;">Category Name is required.</small>
+        }
+    </div>
+
+    <!-- 2. Parent Category Field (NON-MANDATORY / OPTIONAL) -->
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="parentCat">Parent Category (Optional)</label>
+        <p-select 
+            id="parentCat"
+            [options]="categories" 
+            formControlName="parentId"
+            optionLabel="categoryName" 
+            optionValue="categoryId"
+            placeholder="Select a Category" 
+            [filter]="true"
+            filterBy="categoryName" 
+            [showClear]="true"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="20" 
+            scrollHeight="190px">
+        </p-select>
+    </div>
+
+    <!-- 3. Sort Order Field (Mandatory) -->
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="sortOrd">Sort Order *</label>
+        <input 
+            pInputText 
+            id="sortOrd" 
+            formControlName="sortOrder" 
+            placeholder="Enter sortOrder" />
+        
+        @if (categoryForm.get('sortOrder')?.touched && categoryForm.get('sortOrder')?.invalid) {
+            <small style="color: var(--p-red-500); font-size: 12px;">Sort Order is required.</small>
+        }
+    </div>
+
+    <!-- 4. Description Field (Mandatory) -->
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="desc">Description *</label>
+        <textarea 
+            pTextarea 
+            id="desc" 
+            formControlName="description" 
+            rows="4"
+            placeholder="Write a brief category description..." 
+            style="width: 100%; resize: none;">
+        </textarea>
+        
+        @if (categoryForm.get('description')?.touched && categoryForm.get('description')?.invalid) {
+            <small style="color: var(--p-red-500); font-size: 12px;">Description is required.</small>
+        }
+    </div>
+
+    <!-- Modal Footer Actions Row -->
+    <div style="display: flex; justify-content: flex-end; gap: 0.5rem; padding-top: 1rem; border-top: 1px solid var(--p-surface-200);">
+        <p-button label="Cancel" [text]="true" (onClick)="closePopup()"></p-button>
+        <p-button label="Save Category" icon="pi pi-save" (onClick)="confirmSave($event)"></p-button>
+    </div>
+
+</form>
+
+

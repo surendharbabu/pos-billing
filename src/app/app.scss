@@ -1,0 +1,42 @@
+@import "primeicons/primeicons.css";
+
+// .layout-header {
+//     position: fixed;
+//     top: 20px; 
+//     left: 50%; 
+//     transform: translateX(-50%); 
+//     width: 98%; 
+//     height: 64px;
+//     z-index: 1000;
+//     border-radius: 12px; 
+//     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+//     background-color: var(--p-surface-200);
+// }
+
+
+.mgs-container-hand {
+    position: absolute;
+    top: -9px;
+    right: 11.5rem;
+    width: 20rem;
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
+    animation: mgs-fade-in .6s .2s ease;
+}
+
+@keyframes mgs-fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+

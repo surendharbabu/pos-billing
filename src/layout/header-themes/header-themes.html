@@ -1,0 +1,66 @@
+ 
+ <p-drawer [(visible)]="visible" position="right" header="Theme Settings">
+ <div class="ft-grid">
+ @for (ft of fixedThemes; track ft.id) {
+                <div class="ft-card"
+                     (click)="changeThemeColor(ft.color)">
+
+                  <div class="ft-preview" [style.background]="ft.previewBg">
+
+                    <!-- Sidebar -->
+                    <div class="ft-preview__sb" [style.background]="ft.previewSb">
+                      <span class="ft-preview__dot"></span>
+                      <span class="ft-preview__dot ft-preview__dot--active"></span>
+                      <span class="ft-preview__dot"></span>
+                    </div>
+
+                    <!-- Header + body -->
+                    <div class="ft-preview__right">
+                      <div class="ft-preview__hd" [style.background]="ft.previewHd"></div>
+                      <div class="ft-preview__body" [style.background]="ft.previewBg">
+                        <span class="ft-preview__card"></span>
+                        <span class="ft-preview__card"></span>
+                      </div>
+                    </div>
+
+                    <!-- Selected checkmark -->
+                    <!-- @if (this.layoutSvc.selectedFixedTheme === ft.id) {
+                      <div class="ft-check">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="white"
+                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="3 8 6.5 11.5 13 5"/>
+                        </svg>
+                      </div>
+                    } -->
+                  </div>
+
+                  <div class="ft-info">
+                    <div class="ft-label">{{ ft.label }}</div>
+                    <!-- <div class="ft-desc">{{ ft.description }}</div> -->
+                    <!-- <div class="ft-pills">
+                      <span class="ft-pill">{{ ft.sidebar }}</span>
+                      <span class="ft-pill-sep">·</span>
+                      <span class="ft-pill">{{ ft.header }}</span>
+                      <span class="ft-pill-sep">·</span>
+                      <span class="ft-pill">{{ ft.body }}</span>
+                    </div> -->
+                  </div>
+
+                </div>
+              }
+            </div>
+
+            <div class="section">
+          <div class="sec-title">Select Font:</div>
+          <div class="font-selection-container">
+            @for (font of fontOptions; track font.id) {
+              <div
+                class="font-option-wrapper">
+                <div class="font-preview" [style.font-family]="font.family">Aa</div>
+                <div class="font-label">{{ font.name }}</div>
+              </div>
+            }
+          </div>
+        </div>
+        </p-drawer>
+
