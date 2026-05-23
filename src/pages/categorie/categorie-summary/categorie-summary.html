@@ -97,170 +97,382 @@
     </div> -->
 
 <div class="table-container-card">
+
     <p-table 
         #dt
-        [value]="isLoading() ? skeletonRows : products()" 
-        [paginator]="!isLoading()" 
-        [rows]="5" 
-        [rowsPerPageOptions]="[5, 10, 20]"
+        [value]="isLoading() ? skeletonRows : products()"
+
+        [paginator]="!isLoading()"
+        [rows]="5"
+        [rowsPerPageOptions]="[5,10,20]"
+
         responsiveLayout="scroll"
-        [globalFilterFields]="['categoryName', 'parentCategoryName', 'description']"
+
+        scrollable="true"
+        scrollHeight="500px"
+
+        [resizableColumns]="true"
+        columnResizeMode="expand"
+
+        [reorderableColumns]="true"
+
+        [showGridlines]="true"
+        [stripedRows]="true"
+
         [rowHover]="true"
-        filterDisplay="menu">
-        
-        <!-- Premium Action Toolbar Header -->
+
+        sortMode="multiple"
+
+        filterDisplay="menu"
+
+        selectionMode="multiple"
+        dataKey="id"
+
+        [globalFilterFields]="[
+            'categoryName',
+            'parentCategoryName',
+            'description',
+            'status'
+        ]"
+
+        styleClass="p-datatable-sm p-datatable-gridlines">
+
+        <!-- HEADER TOOLBAR -->
         <ng-template pTemplate="caption">
+
             <div class="table-header-toolbar">
-                
-                <!-- Top Left Actions Section -->
+
                 <div class="toolbar-left-group">
-                    <!-- <h3 class="table-title">Categories</h3> -->
 
                     <p-iconfield iconPosition="left" class="header-search-field">
+
                         <p-inputicon class="pi pi-search"></p-inputicon>
+
                         <input 
                             pInputText 
-                            type="text" 
-                            (input)="dt.filterGlobal($any($event.target).value, 'contains')" 
-                            placeholder="Quick search..." 
-                            class="p-inputtext-sm search-bar-input" />
+                            type="text"
+                            class="p-inputtext-sm search-bar-input"
+                            placeholder="Quick Search..."
+                            (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+
                     </p-iconfield>
+
                 </div>
 
-                <!-- Top Right Export Actions Section -->
                 <div class="toolbar-right-group">
-                    <span class="export-label">Export Data:</span>
-                    
-                    <!-- Excel Export Button -->
+
                     <button 
-                        pButton 
-                        type="button" 
-                        icon="pi pi-file-excel" 
-                        class="p-button-rounded p-button-success p-button-outlined export-btn" 
-                        title="Export to Excel">
+                        pButton
+                        type="button"
+                        icon="pi pi-file-excel"
+                        class="p-button-success p-button-rounded p-button-outlined export-btn">
                     </button>
 
-                    <!-- PDF Export Button -->
                     <button 
-                        pButton 
-                        type="button" 
-                        icon="pi pi-file-pdf" 
-                        class="p-button-rounded p-button-danger p-button-outlined export-btn" 
-                        title="Export to PDF">
+                        pButton
+                        type="button"
+                        icon="pi pi-file-pdf"
+                        class="p-button-danger p-button-rounded p-button-outlined export-btn">
                     </button>
 
-                    <!-- Native CSV Export Button (No TypeScript code needed) -->
                     <button 
-                        pButton 
-                        type="button" 
-                        icon="pi pi-file" 
-                        class="p-button-rounded p-button-info p-button-outlined export-btn" 
-                        title="Export to CSV"
-                        (click)="triggerCsvExport(dt)"> 
+                        pButton
+                        type="button"
+                        icon="pi pi-file"
+                        class="p-button-info p-button-rounded p-button-outlined export-btn"
+                        (click)="triggerCsvExport(dt)">
                     </button>
+
                 </div>
 
             </div>
+
         </ng-template>
 
-        <!-- Column Headers (Updated with 'field' properties for CSV mapping) -->
+        <!-- TABLE HEADER -->
         <ng-template pTemplate="header">
+
             <tr>
-                <!-- ✅ Added field="categoryName" -->
-                <th pSortableColumn="categoryName" field="categoryName">
+
+                <th style="width:60px">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+
+                <th
+                    pSortableColumn="categoryName"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="categoryName">
+
                     <div class="flex align-items-center justify-content-between">
+
                         <span>Category Name</span>
+
                         <div class="flex align-items-center gap-1">
+
                             <p-sortIcon field="categoryName"></p-sortIcon>
-                            <p-columnFilter type="text" field="categoryName" display="menu" placeholder="Search by name"></p-columnFilter>
+
+                            <p-columnFilter
+                                type="text"
+                                field="categoryName"
+                                display="menu">
+                            </p-columnFilter>
+
                         </div>
+
                     </div>
+
                 </th>
-                <!-- ✅ Added field="parentCategoryName" -->
-                <th pSortableColumn="parentCategoryName" field="parentCategoryName">
+
+                <th
+                    pSortableColumn="parentCategoryName"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="parentCategoryName">
+
                     <div class="flex align-items-center justify-content-between">
+
                         <span>Parent</span>
+
                         <div class="flex align-items-center gap-1">
+
                             <p-sortIcon field="parentCategoryName"></p-sortIcon>
-                            <p-columnFilter type="text" field="parentCategoryName" display="menu" placeholder="Search parent"></p-columnFilter>
+
+                            <p-columnFilter
+                                type="text"
+                                field="parentCategoryName"
+                                display="menu">
+                            </p-columnFilter>
+
                         </div>
+
                     </div>
+
                 </th>
-                <!-- ✅ Added field="displayOrder" -->
-                <th pSortableColumn="displayOrder" field="displayOrder"> 
+
+                <th
+                    pSortableColumn="displayOrder"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="displayOrder">
+
                     <div class="flex align-items-center justify-content-between">
+
                         <span>Order</span>
+
                         <div class="flex align-items-center gap-1">
+
                             <p-sortIcon field="displayOrder"></p-sortIcon>
-                            <p-columnFilter type="number" field="displayOrder" display="menu"></p-columnFilter>
+
+                            <p-columnFilter
+                                type="numeric"
+                                field="displayOrder"
+                                display="menu">
+                            </p-columnFilter>
+
                         </div>
+
                     </div>
+
                 </th>
-                <!-- ✅ Added field="description" -->
-                <th field="description">
+
+                <th
+                    pReorderableColumn
+                    pResizableColumn
+                    field="description">
+
                     <div class="flex align-items-center justify-content-between">
+
                         <span>Description</span>
-                        <p-columnFilter type="text" field="description" display="menu" placeholder="Search description"></p-columnFilter>
+
+                        <p-columnFilter
+                            type="text"
+                            field="description"
+                            display="menu">
+                        </p-columnFilter>
+
                     </div>
+
                 </th>
-                <!-- ✅ Added field="productCount" -->
-                <th pSortableColumn="productCount" field="productCount"> 
+
+                <th
+                    pSortableColumn="productCount"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="productCount">
+
                     <div class="flex align-items-center justify-content-between">
+
                         <span>Products</span>
+
                         <div class="flex align-items-center gap-1">
+
                             <p-sortIcon field="productCount"></p-sortIcon>
-                            <p-columnFilter type="number" field="productCount" display="menu"></p-columnFilter>
+
+                            <p-columnFilter
+                                type="numeric"
+                                field="productCount"
+                                display="menu">
+                            </p-columnFilter>
+
                         </div>
+
                     </div>
+
                 </th>
-                <!-- ✅ Added field="status" -->
-                <th pSortableColumn="status" field="status"> 
+
+                <th
+                    pSortableColumn="status"
+                    pReorderableColumn
+                    pResizableColumn
+                    field="status">
+
                     <div class="flex align-items-center justify-content-between">
+
                         <span>Status</span>
+
                         <div class="flex align-items-center gap-1">
+
                             <p-sortIcon field="status"></p-sortIcon>
-                            <p-columnFilter type="text" field="status" display="menu" placeholder="Search status"></p-columnFilter>
+
+                            <p-columnFilter
+                                type="text"
+                                field="status"
+                                display="menu">
+                            </p-columnFilter>
+
                         </div>
+
                     </div>
+
                 </th>
-                <th style="text-align: center;">Actions</th> 
+
+                <th
+                    pReorderableColumn
+                    pResizableColumn
+                    style="text-align:center; width:150px;">
+
+                    Actions
+
+                </th>
+
             </tr>
+
         </ng-template>
 
-        <!-- Table Data Rows Block -->
+        <!-- TABLE BODY -->
         <ng-template pTemplate="body" let-item>
+
             <tr *ngIf="isLoading()">
+
                 <td><p-skeleton></p-skeleton></td>
                 <td><p-skeleton></p-skeleton></td>
                 <td><p-skeleton></p-skeleton></td>
                 <td><p-skeleton></p-skeleton></td>
                 <td><p-skeleton></p-skeleton></td>
                 <td><p-skeleton></p-skeleton></td>
-                <td><div class="flex gap-2 justify-content-center"><p-skeleton shape="circle" size="2rem" *ngFor="let i of [1,2,3]"></p-skeleton></div></td>
+                <td><p-skeleton></p-skeleton></td>
+                  <td>
+
+            <div class="flex gap-2 justify-content-center">
+
+                <p-skeleton
+                    shape="circle"
+                    size="2rem">
+                </p-skeleton>
+
+                <p-skeleton
+                    shape="circle"
+                    size="2rem">
+                </p-skeleton>
+
+                <p-skeleton
+                    shape="circle"
+                    size="2rem">
+                </p-skeleton>
+
+            </div>
+
+        </td>
+
             </tr>
-            
+
             <tr *ngIf="!isLoading()">
-                <td class="font-semibold text-primary-color"><span>{{item.categoryName || '-'}}</span></td>
-                <td><span class="text-secondary-color">{{item.parentCategoryName || '-'}}</span></td>
-                <td><span class="badge-order">{{item.displayOrder || '0'}}</span></td>
-                <td><span class="truncate-desc">{{item.description || '-'}}</span></td>
-                <td><span class="font-bold">{{item.productCount || 0}}</span></td>
+
                 <td>
-                    <span [class]="'status-badge ' + (item?.status?.toLowerCase() === 'active' ? 'status-active' : 'status-inactive')">
-                        <span class="status-dot"></span> 
-                        {{item?.status || 'Inactive'}}
+                    <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                </td>
+
+                <td>
+                    {{ item.categoryName || '-' }}
+                </td>
+
+                <td>
+                    {{ item.parentCategoryName || '-' }}
+                </td>
+
+                <td>
+                    {{ item.displayOrder || 0 }}
+                </td>
+
+                <td>
+                    {{ item.description || '-' }}
+                </td>
+
+                <td>
+                    {{ item.productCount || 0 }}
+                </td>
+
+                <td>
+
+                    <span 
+                        [class]="
+                            item?.status?.toLowerCase() === 'active'
+                            ? 'status-active'
+                            : 'status-inactive'
+                        ">
+
+                        {{ item?.status || 'Inactive' }}
+
                     </span>
+
                 </td>
+
                 <td>
-                    <div class="flex gap-1 justify-content-center">
-                        <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm row-action-btn view-btn" (click)="onViewEdit(item,'view')"></button>
-                        <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-sm row-action-btn edit-btn" (click)="onViewEdit(item,'edit')"></button>
-                        <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-sm row-action-btn delete-btn" (click)="onViewEdit(item,'delete')"></button>
+
+                    <div class="flex gap-2 justify-content-center">
+
+                        <button
+                            pButton
+                            type="button"
+                            icon="pi pi-eye"
+                            class="p-button-rounded p-button-text p-button-info">
+                        </button>
+
+                        <button
+                            pButton
+                            type="button"
+                            icon="pi pi-pencil"
+                            class="p-button-rounded p-button-text p-button-warning">
+                        </button>
+
+                        <button
+                            pButton
+                            type="button"
+                            icon="pi pi-trash"
+                            class="p-button-rounded p-button-text p-button-danger">
+                        </button>
+
                     </div>
+
                 </td>
+
             </tr>
+
         </ng-template>
+
     </p-table>
+
 </div>
 
 
