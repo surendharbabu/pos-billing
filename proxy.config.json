@@ -1,8 +1,9 @@
-  {
-  "/category-service": {
-    "target": "http://172.27.5.121:8080",
+
+{
+  "/pos-service/": {
+    "target": "http://10.111.109.65:8080",
     "pathRewrite": {
-      "^/category-service": "/"
+      "^/pos-service/": "/"
     },
     "secure": false,
     "logLevel": "debug",
