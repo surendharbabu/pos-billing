@@ -20,7 +20,7 @@ export class AddNew {
    categories = [];
    categorieData: any
      selectedCategoryId = signal<string | null>(null);
-     categoryForm: FormGroup;
+     categoryForm: any=FormGroup;
 
   constructor(public commonService: Common,private messageService: MessageService,public DynamicDialogRef: DynamicDialogRef,
     public DynamicDialogConfig: DynamicDialogConfig, public fb: FormBuilder
@@ -75,10 +75,10 @@ export class AddNew {
     }
 
     let request = {
-      "categoryName": this.categoryName,
-      "parentId": null,
-      "description": this.description,
-      "displayOrder": this.sortOrder
+      "categoryName": this.categoryForm.value.categoryName ? this.categoryForm.value.categoryName : '',
+      "parentId": this.categoryForm.value.parentId ? this.categoryForm.value.parentId : null,
+      "description": this.categoryForm.value.description ? this.categoryForm.value.description : '',
+      "displayOrder": this.categoryForm.value.sortOrder ? this.categoryForm.value.sortOrder : ''
     }
     this.commonService.createCategory(request).subscribe({
       next: (res: any) => {

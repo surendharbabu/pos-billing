@@ -198,7 +198,7 @@ categoryId: id
 
    openCategoryDialog(screenType: string, data: any) {
     this.DynamicDialogRef = this.dialogService.open(AddNew, {
-      header: 'Add Categorie',
+      header: 'Add Category',
       width: '500px',
       modal: true,
       closable: true,
