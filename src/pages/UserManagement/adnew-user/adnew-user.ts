@@ -20,7 +20,7 @@ export class AdnewUser {
   sortOrder = ''
   description = ''
    userRoles = [];
-   categorieData: any
+   userData: any
      selectedCategoryId = signal<string | null>(null);
      userForm: any=FormGroup;
 
@@ -61,21 +61,50 @@ export class AdnewUser {
   }
 
   ngOnInit() {
-    this.getRoles();
-    if (this.DynamicDialogConfig.data) {
-      if (this.DynamicDialogConfig.data.screenType == 'view') {
-        this.categorieData = this.DynamicDialogConfig.data.resData || [];
-        this.userForm.patchValue({
-          categoryName: this.categorieData?.categoryName ? this.categorieData?.categoryName : '',
-          parentId: this.categorieData?.parentId ? this.categorieData?.parentId : '',
-          sortOrder: this.categorieData?.displayOrder ? this.categorieData?.displayOrder : '',
-          description: this.categorieData?.description ? this.categorieData?.description : ''
-        })
-        this.userForm.disable()
-      }
-    }
+   
+  this.getRoles();
+
+  const screenType =
+    this.DynamicDialogConfig.data.screenType;
+
+  const data =
+    this.DynamicDialogConfig.data.resData;
+
+  // Remove password validators for edit/view
+  if (screenType === 'edit' || screenType === 'view') {
+
+    this.userForm.get('password')?.clearValidators();
+
+    this.userForm.get('confirmPassword')?.clearValidators();
+
+    this.userForm.get('password')?.updateValueAndValidity();
+
+    this.userForm.get('confirmPassword')?.updateValueAndValidity();
+
+    // Remove form-level password validator
+    this.userForm.clearValidators();
+
+    this.userForm.updateValueAndValidity();
   }
-  passwordMatchValidator(form: AbstractControl) {
+
+  // Patch form values
+  if (screenType === 'view' || screenType === 'edit') {
+
+    this.userForm.patchValue({
+      userName: data.userName,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      mobileNo: data.mobileNo,
+      email: data.email,
+      role: data.role
+    });
+  }
+
+  // Disable form in view mode
+  if (screenType === 'view') {
+    this.userForm.disable();
+  }
+}  passwordMatchValidator(form: AbstractControl) {
 
   const password = form.get('password')?.value;
   const confirmPassword = form.get('confirmPassword')?.value;
@@ -102,36 +131,63 @@ export class AdnewUser {
 
   }
 
+ 
+
   confirmSave(data: any) {
 
-    if (this.userForm.invalid) {
-      this.userForm.markAllAsTouched();
-      return;
-    }
-
-    let request = {
-      "userName": this.userForm.value.userName ? this.userForm.value.userName : '',
-      "firstName": this.userForm.value.firstName ? this.userForm.value.firstName : null,
-      "lastName": this.userForm.value.lastName ? this.userForm.value.lastName : '',
-      "mobileNo": this.userForm.value.mobileNo ? this.userForm.value.mobileNo : '',
-      "email": this.userForm.value.email ? this.userForm.value.email : '',
-      "password": this.userForm.value.password ? this.userForm.value.password : null,
-      "role": this.userForm.value.role ? this.userForm.value.role : '',
-      
-    }
-    this.userService.createUser(request).subscribe({
-      next: (res: any) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Category saved successfully!',
-          life: 500000
-        });
-        // this.dialogRef.close({ saved: true, data: outputPayload });
-        this.DynamicDialogRef.close();
-      }
-    })
+  if (this.userForm.invalid) {
+    this.userForm.markAllAsTouched();
+    return;
   }
+
+  const screenType =
+    this.DynamicDialogConfig.data.screenType;
+
+  let request: any = {
+    userName: this.userForm.value.userName || '',
+    firstName: this.userForm.value.firstName || '',
+    lastName: this.userForm.value.lastName || '',
+    mobileNo: this.userForm.value.mobileNo || '',
+    email: this.userForm.value.email || '',
+    role: this.userForm.value.role || ''
+  };
+
+  // Add password only for add user
+  if (screenType === 'add') {
+    request.password =
+      this.userForm.value.password || '';
+  }
+
+  // Add userId for update
+  if (screenType === 'edit') {
+    request.userId =
+      this.DynamicDialogConfig.data.resData.userId;
+  }
+
+  const apiCall =
+    screenType === 'edit'
+      ? this.userService.updateUser(request)
+      : this.userService.createUser(request);
+
+  apiCall.subscribe({
+    next: (res: any) => {
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail:
+          screenType === 'edit'
+            ? 'User updated successfully!'
+            : 'User saved successfully!',
+        life: 3000
+      });
+
+      this.DynamicDialogRef.close({
+        saved: true
+      });
+    }
+  });
+}
   restrictAlphaNumeric(event: KeyboardEvent): void {
   const charCode = event.key;
   // Allow only A-Z, a-z, 0-9

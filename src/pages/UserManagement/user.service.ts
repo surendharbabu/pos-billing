@@ -26,6 +26,15 @@ export class UserService {
     let url = this.local + this.userService + this.userUrl + 'create'
     return this.POSTAPI(request, url)
   }
+  updateUser(request: any) {
+    let url = this.local + this.userService + this.userUrl + 'update'
+    return this.POSTAPI(request, url)
+  }
+
+  deleteUser(request: any) {
+    let url = this.local + this.userService + this.userUrl + 'delete'
+    return this.POSTAPI(request, url)
+  }
 
   getUsers(request: any) {
     let url = this.local + this.userService + this.userUrl + 'category'

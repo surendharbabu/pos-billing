@@ -1,3 +1,6 @@
+
+
+<p-confirmdialog></p-confirmdialog>
 <!-- Action Header Row Panel -->
 <div class="bannimg">
 
@@ -504,21 +507,22 @@
                 <td>
                     <div class="actions">
 
-                        <button pButton type="button"
+                        <button pButton type="button" (click)="view(item.userId)"
                             icon="pi pi-eye"
                             class="act view"
                             pTooltip="View"
                             tooltipPosition="top">
                         </button>
 
-                        <button pButton type="button"
+                        <button pButton type="button" (click)="edit(item.userId)"
                             icon="pi pi-pencil"
                             class="act edit"
                             pTooltip="Edit"
                             tooltipPosition="top">
                         </button>
 
-                        <button pButton type="button"
+                        <button pButton type="button" (click)="onViewEdit(item.userId, 'delete', $event)"
+
                             icon="pi pi-trash"
                             class="act delete"
                             pTooltip="Delete"

@@ -105,7 +105,7 @@
 
 
     <!-- Password -->
-<div style="display: flex; flex-direction: column; gap: 0.5rem;">
+<div style="display: flex; flex-direction: column; gap: 0.5rem;" *ngIf="this.DynamicDialogConfig.data.screenType === 'add'">
     <label for="password">Password <span style="color: red;">*</span></label>
 
     <p-password autocomplete="new-password"
@@ -133,7 +133,7 @@
 </div>
 
 <!-- Confirm Password -->
-<div style="display: flex; flex-direction: column; gap: 0.5rem;">
+<div style="display: flex; flex-direction: column; gap: 0.5rem;" *ngIf="this.DynamicDialogConfig.data.screenType === 'add'">
     <label for="confirmPassword">Confirm Password <span style="color: red;">*</span></label>
 
     <p-password
@@ -185,7 +185,16 @@
 </form>
 <div style="display: flex; justify-content: flex-end; gap: 0.5rem; padding-top: 1rem; border-top: 1px solid var(--p-surface-200);">
         <p-button label="Cancel" [text]="true" (onClick)="closePopup()"></p-button>
-        <p-button label="Save User" icon="pi pi-save" (onClick)="confirmSave($event)"></p-button>
+        <p-button
+    [label]="
+      this.DynamicDialogConfig.data.screenType === 'edit'
+        ? 'Update User'
+        : 'Save User'
+    "
+    icon="pi pi-save"
+    (onClick)="confirmSave($event)"
+    *ngIf="this.DynamicDialogConfig.data.screenType != 'view'">
+</p-button>
     </div>
 
 

@@ -1,7 +1,7 @@
 
 import { Component, DOCUMENT, Inject, Renderer2, signal } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
-// import { AddNew } from '../add-new/add-new';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Popover } from 'primeng/popover';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -10,7 +10,7 @@ import { UserService } from '../user.service';
 import { AdnewUser } from '../adnew-user/adnew-user';
 @Component({
   selector: 'app-usermanagement-summary',
-  imports: [CommonPrimeModule],
+  imports: [CommonPrimeModule,ConfirmDialogModule],
   templateUrl: './usermanagement-summary.html',
   styleUrl: './usermanagement-summary.scss',
   providers: [ConfirmationService,MessageService,DialogService]
@@ -153,19 +153,45 @@ triggerFlash(color: 'green' | 'red'): void {
     popover.hide()
   }
 
-onViewEdit(data: any, action: string){
-  this.view(data.categoryId)
+onViewEdit(data: any, action: string, event?: Event) {
 
+  if (action === 'view') {
+    this.view(data.userId);
+  }
+
+  if (action === 'edit') {
+    this.edit(data.userId);
+  }
+
+  if (action === 'delete') {
+    this.confirmDelete(event!, data.userId);
+  }
 }
 
+edit(id: any) {
+
+  let request = {
+    userId: id
+  };
+
+  this.userService.view(request).subscribe({
+    next: (res: any) => {
+
+      let data =
+        res.responseMessage.message?.userDetails || {};
+
+      this.openCategoryDialog('edit', data);
+    }
+  });
+}
 view(id: any){
  let request = {
-categoryId: id
+    userId: id
   }
   this.userService.view(request).subscribe({
     next: (res: any) => {
       let data: any 
-      data = res.responseMessage.message?.categoryDetails || '';
+      data = res.responseMessage.message?.userDetails || '';
       this.openCategoryDialog("view",data)
     }
   })
@@ -199,23 +225,35 @@ categoryId: id
   }
 
 
-   openCategoryDialog(screenType: string, data: any) {
-    this.DynamicDialogRef = this.dialogService.open(AdnewUser, {
-      header: 'Add User',
-      width: '1000px',
-      modal: true,
-      closable: true,
-      data: {
-        screenType: screenType,
-        resData: data,
-      }
-    });
-    this.DynamicDialogRef?.onClose.subscribe((data) => {
-      if (data?.saved) {
-        console.log('Category dialog closed after saving!', data);
-      }
-    });
-  }
+  openCategoryDialog(screenType: string, data: any) {
+
+  this.DynamicDialogRef = this.dialogService.open(AdnewUser, {
+    header:
+      screenType === 'view'
+        ? 'View User'
+        : screenType === 'edit'
+        ? 'Edit User'
+        : 'Add User',
+
+    width: '1000px',
+    modal: true,
+    closable: true,
+
+    data: {
+      screenType: screenType,
+      resData: data,
+    }
+  });
+
+  this.DynamicDialogRef?.onClose.subscribe((data) => {
+    if (data?.saved) {
+      console.log('User dialog closed after saving!', data);
+
+      // Reload summary after add/edit
+      this.getSummary();
+    }
+  });
+}
 
    triggerCsvExport(tableRef: Table): void {
     if (!tableRef) return;
@@ -237,7 +275,55 @@ categoryId: id
       tableRef.filters = currentFilters;
     }
   }
-  
+
+ confirmDelete(event: Event, userId: any) {
+
+  this.confirmationService.confirm({
+    target: event.target as HTMLElement,
+
+    message:
+      'Are you sure you want to delete this user?',
+
+    icon: 'pi pi-exclamation-triangle',
+
+    rejectButtonProps: {
+      label: 'Cancel',
+      severity: 'secondary',
+      outlined: true
+    },
+
+    acceptButtonProps: {
+      label: 'Delete',
+      severity: 'danger'
+    },
+
+    accept: () => {
+      this.deleteUser(userId);
+    }
+  });
+}
+
+deleteUser(userId: any) {
+
+  let request = {
+    userId: userId
+  };
+
+  this.userService.deleteUser(request).subscribe({
+    next: (res: any) => {
+
+     this.messageService.add({
+  severity: 'error',
+  summary: 'Deleted',
+  detail: 'User deleted successfully!',
+  life: 3000
+});
+
+      // Refresh table
+      this.getSummary();
+    }
+  });
+}
 }
 
 
