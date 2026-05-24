@@ -19,11 +19,14 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { PasswordModule } from 'primeng/password';
-
+import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [],
   imports: [
+    ConfirmDialogModule,
+    TooltipModule,
     CommonModule,
     ButtonModule,
     ToolbarModule,
@@ -35,6 +38,8 @@ import { PasswordModule } from 'primeng/password';
     PopoverModule,SvgIconComponent,SelectModule,ReactiveFormsModule,PasswordModule
   ],
   exports: [
+    TooltipModule,
+    ConfirmDialogModule,
     CommonModule,
     ButtonModule,
     ToolbarModule,

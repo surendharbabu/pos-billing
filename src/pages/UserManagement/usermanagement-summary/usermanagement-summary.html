@@ -514,15 +514,27 @@
                             tooltipPosition="top">
                         </button>
 
-                        <button pButton type="button" (click)="edit(item.userId)"
+                        <button pButton type="button" (click)="edit(item.userId)" [disabled]="item?.status?.toLowerCase() !== 'active'" 
                             icon="pi pi-pencil"
                             class="act edit"
                             pTooltip="Edit"
-                            tooltipPosition="top">
+                            tooltipPosition="top"  
+                            [pTooltip]="
+      item?.status?.toLowerCase() !== 'active'
+      ? 'Inactive users cannot be edited'
+      : 'Edit'
+    "
+    tooltipPosition="top">
                         </button>
 
                         <button pButton type="button" (click)="onViewEdit(item.userId, 'delete', $event)"
-
+[disabled]="item?.status?.toLowerCase() !== 'active'"
+    [pTooltip]="
+      item?.status?.toLowerCase() !== 'active'
+      ? 'Inactive users cannot be deleted'
+      : 'Delete'
+    "
+    tooltipPosition="top"
                             icon="pi pi-trash"
                             class="act delete"
                             pTooltip="Delete"

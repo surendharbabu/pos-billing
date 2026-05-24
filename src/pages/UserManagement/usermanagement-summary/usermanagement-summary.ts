@@ -1,7 +1,6 @@
 
 import { Component, DOCUMENT, Inject, Renderer2, signal } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { Table } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Popover } from 'primeng/popover';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -10,7 +9,7 @@ import { UserService } from '../user.service';
 import { AdnewUser } from '../adnew-user/adnew-user';
 @Component({
   selector: 'app-usermanagement-summary',
-  imports: [CommonPrimeModule,ConfirmDialogModule],
+  imports: [CommonPrimeModule],
   templateUrl: './usermanagement-summary.html',
   styleUrl: './usermanagement-summary.scss',
   providers: [ConfirmationService,MessageService,DialogService]
@@ -140,12 +139,6 @@ triggerFlash(color: 'green' | 'red'): void {
     }, 1000);
   }
 
-
-   menuOptions: any[] = [
-    { label: 'Trigger Green Flash', type: 'success' },
-    { label: 'Trigger Red Flash', type: 'error' },
-    { label: 'Reset Status Panel', type: 'normal' }
-  ];
   selectedOption: any | null = null;
 
 
@@ -207,8 +200,7 @@ view(id: any){
 
 
  categories = [
-    // { name: 'Electronics', id: 'CAT001' },
-    // { name: 'Clothing', id: 'CAT002' }
+
   ];
   selectedCategoryId = signal<string | null>(null);
 
@@ -224,10 +216,11 @@ view(id: any){
     })
   }
 
-
+menuOptions=[]
   openCategoryDialog(screenType: string, data: any) {
 
-  this.DynamicDialogRef = this.dialogService.open(AdnewUser, {
+    const ref = this.dialogService.open(AdnewUser, {
+  // this.DynamicDialogRef = this.dialogService.open(AdnewUser, {
     header:
       screenType === 'view'
         ? 'View User'
@@ -245,21 +238,15 @@ view(id: any){
     }
   });
 
-  this.DynamicDialogRef?.onClose.subscribe((data) => {
+  ref?.onClose.subscribe((data) => {
     if (data?.saved) {
       console.log('User dialog closed after saving!', data);
-
-      // Reload summary after add/edit
+     this.getCount(); // API call here
+     // Reload summary after add/edit
       this.getSummary();
     }
   });
 
-  
-   this.DynamicDialogRef?.onClose.subscribe((result: any) => {
-  if (result?.saved) {
-    this.getCount(); // API call here
-  }
-});
 }
 
    triggerCsvExport(tableRef: Table): void {
