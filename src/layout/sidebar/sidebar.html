@@ -1,14 +1,432 @@
-        <aside class="sidebar">
-            <ul class="nav-list">
-                <li routerLink="/dashboard"><i class="pi pi-home"></i> <span class="nav-text">Dashboard</span></li>
-                <li routerLink="/users"><i class="pi pi-user"></i> <span class="nav-text">User Management</span></li>
-                <li routerLink="/customer"><i class="pi pi-id-card"></i> <span class="nav-text">Customer Management</span></li>
-                <li routerLink="/category"><i class="pi pi-th-large"></i> <span class="nav-text">Category Management</span></li>
-                <li routerLink="/product"><i class="pi pi-box"></i> <span class="nav-text">Product Management</span></li>
-                <li routerLink="/inventory"><i class="pi pi-warehouse"></i> <span class="nav-text">Inventory Management</span></li>
-                <li routerLink="/order"><i class="pi pi pi-receipt"></i> <span class="nav-text">Order Management</span></li>
-                <li routerLink="/expense"><i class="pi pi pi-wallet"></i> <span class="nav-text">Expense Management</span></li>
-                <li routerLink="/reports"><i class="pi pi pi-chart-bar"></i> <span class="nav-text">Reports</span></li>
-            </ul>
-        </aside>
+<aside class="sidebar">
 
+    <ul class="nav-list">
+
+        <!-- ===================================================== -->
+        <!-- DASHBOARD -->
+        <!-- ===================================================== -->
+
+        <li
+            routerLink="/dashboard"
+            routerLinkActive="active-menu"
+            [routerLinkActiveOptions]="{ exact: true }">
+
+            <div class="menu-left">
+                <i class="pi pi-home"></i>
+                <span class="nav-text">Dashboard</span>
+            </div>
+
+        </li>
+
+        <!-- ===================================================== -->
+        <!-- USER MANAGEMENT -->
+        <!-- ===================================================== -->
+
+        <li class="menu-parent">
+
+            <div
+                class="menu-item"
+                [class.active-menu]="openMenu === 'users'"
+                (click)="openMenu = openMenu === 'users' ? '' : 'users'">
+
+                <div class="menu-left">
+                    <i class="pi pi-user"></i>
+                    <span class="nav-text">User Management</span>
+                </div>
+
+                <i
+                    class="pi submenu-arrow"
+                    [ngClass]="
+                        openMenu === 'users'
+                        ? 'pi-chevron-down'
+                        : 'pi-chevron-right'
+                    ">
+                </i>
+
+            </div>
+
+            <ul
+                class="submenu"
+                [class.submenu-open]="openMenu === 'users'">
+
+                <!-- <li
+                    routerLink="/users"
+                    routerLinkActive="active-submenu"
+                    [routerLinkActiveOptions]="{ exact: true }">
+
+                    <i class="pi pi-list"></i>
+                    <span>User List</span>
+
+                </li> -->
+
+                <li
+                    routerLink="/users"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-plus-circle"></i>
+                    <span>Users</span>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <!-- ===================================================== -->
+        <!-- CUSTOMER MANAGEMENT -->
+        <!-- ===================================================== -->
+
+        <li class="menu-parent">
+
+            <div
+                class="menu-item"
+                [class.active-menu]="openMenu === 'customer'"
+                (click)="openMenu = openMenu === 'customer' ? '' : 'customer'">
+
+                <div class="menu-left">
+                    <i class="pi pi-id-card"></i>
+                    <span class="nav-text">Customer Management</span>
+                </div>
+
+                <i
+                    class="pi submenu-arrow"
+                    [ngClass]="
+                        openMenu === 'customer'
+                        ? 'pi-chevron-down'
+                        : 'pi-chevron-right'
+                    ">
+                </i>
+
+            </div>
+
+            <ul
+                class="submenu"
+                [class.submenu-open]="openMenu === 'customer'">
+
+                <li
+                    routerLink="/customer"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-users"></i>
+                    <span>Customers</span>
+
+                </li>
+
+                <!-- <li
+                    routerLink="/customer/create"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-user-plus"></i>
+                    <span>Add Customer</span>
+
+                </li> -->
+
+            </ul>
+
+        </li>
+
+        <!-- ===================================================== -->
+        <!-- CATEGORY MANAGEMENT -->
+        <!-- ===================================================== -->
+
+        <li class="menu-parent">
+
+            <div
+                class="menu-item"
+                [class.active-menu]="openMenu === 'category'"
+                (click)="openMenu = openMenu === 'category' ? '' : 'category'">
+
+                <div class="menu-left">
+                    <i class="pi pi-th-large"></i>
+                    <span class="nav-text">Category Management</span>
+                </div>
+
+                <i
+                    class="pi submenu-arrow"
+                    [ngClass]="
+                        openMenu === 'category'
+                        ? 'pi-chevron-down'
+                        : 'pi-chevron-right'
+                    ">
+                </i>
+
+            </div>
+
+            <ul
+                class="submenu"
+                [class.submenu-open]="openMenu === 'category'">
+
+                <!-- <li
+                    routerLink="/category/list"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-list"></i>
+                    <span>Category List</span>
+
+                </li> -->
+
+                <li
+                    routerLink="/category"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-plus"></i>
+                    <span>Categorys</span>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <!-- ===================================================== -->
+        <!-- PRODUCT MANAGEMENT -->
+        <!-- ===================================================== -->
+
+        <li class="menu-parent">
+
+            <div
+                class="menu-item"
+                [class.active-menu]="openMenu === 'product'"
+                (click)="openMenu = openMenu === 'product' ? '' : 'product'">
+
+                <div class="menu-left">
+                    <i class="pi pi-box"></i>
+                    <span class="nav-text">Product Management</span>
+                </div>
+
+                <i
+                    class="pi submenu-arrow"
+                    [ngClass]="
+                        openMenu === 'product'
+                        ? 'pi-chevron-down'
+                        : 'pi-chevron-right'
+                    ">
+                </i>
+
+            </div>
+
+            <ul
+                class="submenu"
+                [class.submenu-open]="openMenu === 'product'">
+
+                <li
+                    routerLink="/product"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-list"></i>
+                    <span>Products</span>
+
+                </li>
+
+                <!-- <li
+                    routerLink="/product/create"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-plus"></i>
+                    <span>Add Product</span>
+
+                </li> -->
+
+            </ul>
+
+        </li>
+
+         <li class="menu-parent">
+
+            <div
+                class="menu-item"
+                [class.active-menu]="openMenu === 'inventory'"
+                (click)="openMenu = openMenu === 'inventory' ? '' : 'inventory'">
+
+                <div class="menu-left">
+                    <i class="pi pi-warehouse"></i>
+                    <span class="nav-text">Inventory Management</span>
+                </div>
+
+                <i
+                    class="pi submenu-arrow"
+                    [ngClass]="
+                        openMenu === 'inventory'
+                        ? 'pi-chevron-down'
+                        : 'pi-chevron-right'
+                    ">
+                </i>
+
+            </div>
+
+            <ul
+                class="submenu"
+                [class.submenu-open]="openMenu === 'inventory'">
+
+                <li
+                    routerLink="/inventory"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-list"></i>
+                    <span>Inventorys</span>
+
+                </li>
+
+                <!-- <li
+                    routerLink="/product/create"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-plus"></i>
+                    <span>Add Product</span>
+
+                </li> -->
+
+            </ul>
+
+        </li>
+
+         <li class="menu-parent">
+
+            <div
+                class="menu-item"
+                [class.active-menu]="openMenu === 'order'"
+                (click)="openMenu = openMenu === 'order' ? '' : 'order'">
+
+                <div class="menu-left">
+                    <i class="pi pi pi-receipt"></i>
+                    <span class="nav-text">Order Managemen</span>
+                </div>
+
+                <i
+                    class="pi submenu-arrow"
+                    [ngClass]="
+                        openMenu === 'order'
+                        ? 'pi-chevron-down'
+                        : 'pi-chevron-right'
+                    ">
+                </i>
+
+            </div>
+
+            <ul
+                class="submenu"
+                [class.submenu-open]="openMenu === 'order'">
+
+                <li
+                    routerLink="/order"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-list"></i>
+                    <span>Oders</span>
+
+                </li>
+
+                <!-- <li
+                    routerLink="/product/create"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-plus"></i>
+                    <span>Add Product</span>
+
+                </li> -->
+
+            </ul>
+
+        </li>
+
+          <li class="menu-parent">
+
+            <div
+                class="menu-item"
+                [class.active-menu]="openMenu === 'expense'"
+                (click)="openMenu = openMenu === 'expense' ? '' : 'expense'">
+
+                <div class="menu-left">
+                    <i class="pi pi pi-wallet"></i>
+                    <span class="nav-text">Expense Management</span>
+                </div>
+
+                <i
+                    class="pi submenu-arrow"
+                    [ngClass]="
+                        openMenu === 'expense'
+                        ? 'pi-chevron-down'
+                        : 'pi-chevron-right'
+                    ">
+                </i>
+
+            </div>
+
+            <ul
+                class="submenu"
+                [class.submenu-open]="openMenu === 'expense'">
+
+                <li
+                    routerLink="/expense"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-list"></i>
+                    <span>Expense</span>
+
+                </li>
+
+                <!-- <li
+                    routerLink="/product/create"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-plus"></i>
+                    <span>Add Product</span>
+
+                </li> -->
+
+            </ul>
+
+        </li>
+
+         <li class="menu-parent">
+
+            <div
+                class="menu-item"
+                [class.active-menu]="openMenu === 'reports'"
+                (click)="openMenu = openMenu === 'reports' ? '' : 'reports'">
+
+                <div class="menu-left">
+                    <i class="pi pi pi-chart-bar"></i>
+                    <span class="nav-text">Reports</span>
+                </div>
+
+                <i
+                    class="pi submenu-arrow"
+                    [ngClass]="
+                        openMenu === 'reports'
+                        ? 'pi-chevron-down'
+                        : 'pi-chevron-right'
+                    ">
+                </i>
+
+            </div>
+
+            <ul
+                class="submenu"
+                [class.submenu-open]="openMenu === 'reports'">
+
+                <li
+                    routerLink="/reports"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-list"></i>
+                    <span>Predfiend Reports</span>
+
+                </li>
+
+                <!-- <li
+                    routerLink="/product/create"
+                    routerLinkActive="active-submenu">
+
+                    <i class="pi pi-plus"></i>
+                    <span>Add Product</span>
+
+                </li> -->
+
+            </ul>
+
+        </li>
+
+    </ul>
+
+</aside>
