@@ -156,15 +156,15 @@ triggerFlash(color: 'green' | 'red'): void {
 onViewEdit(data: any, action: string, event?: Event) {
 
   if (action === 'view') {
-    this.view(data.userId);
+    this.view(data);
   }
 
   if (action === 'edit') {
-    this.edit(data.userId);
+    this.edit(data);
   }
 
   if (action === 'delete') {
-    this.confirmDelete(event!, data.userId);
+    this.confirmDelete(event!, data);
   }
 }
 
@@ -253,6 +253,13 @@ view(id: any){
       this.getSummary();
     }
   });
+
+  
+   this.DynamicDialogRef?.onClose.subscribe((result: any) => {
+  if (result?.saved) {
+    this.getCount(); // API call here
+  }
+});
 }
 
    triggerCsvExport(tableRef: Table): void {
@@ -321,6 +328,7 @@ deleteUser(userId: any) {
 
       // Refresh table
       this.getSummary();
+      this.getCount();
     }
   });
 }

@@ -104,6 +104,9 @@ export class AdnewUser {
   if (screenType === 'view') {
     this.userForm.disable();
   }
+  if (screenType === 'edit') {
+    this.userForm.get('userName')?.disable();
+  }
 }  passwordMatchValidator(form: AbstractControl) {
 
   const password = form.get('password')?.value;
